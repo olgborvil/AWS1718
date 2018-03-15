@@ -1,4 +1,4 @@
-
+'use strict';
 var contacts = [
         { "name": "peter", "phone": 12345},
         { "name": "john", "phone": 6789}
