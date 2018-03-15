@@ -9,8 +9,8 @@
   },
   "repository":{
     "type": "git",
-    "url":https://github.com/olgborvil/AWS1718.git,
-    "github":https://github.com/olgborvil/AWS1718
+    "url":"https://github.com/olgborvil/AWS1718.git",
+    "github":"https://github.com/olgborvil/AWS1718"
   },
   "author": "Olga Borrego",
   "license": "ISC",
