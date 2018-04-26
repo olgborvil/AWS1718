@@ -1,39 +1,39 @@
 'use strict';
-var contacts = [
-        { "name": "peter", "phone": 12345},
-        { "name": "john", "phone": 6789}
-    ];
-    
-    
-function printContact(c){
-    console.log("%s >> %s",c.name,c.phone);
-}
 
-contacts.forEach(printContact);
+var path = require('path');
+var DataStore = require('nedb');
+var dbFileName = path.join(__dirname, 'contacts.json');
 
-
-contacts.forEach((c) => {
-    console.log("%s >> %s",c.name,c.phone);
+var db = new DataStore({
+    filename : dbFileName,
+    autoload : true
 });
 
 
-/*
-function printContacts(contacts){
-    if(contacts == null)
-        contacts = this.data;
-    
-    for(var i = 0; i< contacts.length;i++){
-        printContact(contacts[i]);   
-    }
-}
+var Contacts = function () {};
 
-printContacts(contacts);
-*/
+Contacts.prototype.allContacts = function(callback) {
+    return db.find({}, callback);
+};
 
+Contacts.prototype.add = function(contact, callback) {
+    return db.insert(contact, callback);
+};
 
-/*
-contacts.data = contacts;
-contacts.print = printContacts;
+Contacts.prototype.removeAll = function(callback) {
+    return db.remove({},{ multi: true},callback);
+};
 
-contacts.print();
-*/
+Contacts.prototype.get = function(name, callback) {
+    return db.find({name:name}, callback);
+};
+
+Contacts.prototype.remove = function(name, callback) {
+    return db.remove({name:name},{ multi: true}, callback);
+};
+
+Contacts.prototype.update = function(name, updatedContact, callback) {
+    return db.update({name:name},updatedContact,{}, callback);
+};
+
+module.exports = new Contacts();
